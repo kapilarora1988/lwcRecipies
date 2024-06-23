@@ -74,13 +74,13 @@ public without sharing class MergeChildRecordsToMaster {
         }
         SObject obj = slaveId.getSObjectType().newSObject();
         obj.put('Id',slaveId);
-        //DELETE obj;
+        DELETE obj;
         sObjectMap.clear();
         mergeGenericChildRecords(masterId,slaveId);
     }
 
     /**********************************************************
-    @Method Name    : mergeChildRecords
+    @Method Name    : mergeGenericChildRecords
     @author         : Kapil Arora
     @description    : This method  is used for reparenting all the generic related 
                       objects with master record Id post merge

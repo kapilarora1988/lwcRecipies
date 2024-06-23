@@ -240,10 +240,7 @@ public with sharing class DuplicateRecordsHandler {
     */
     private static String getMergeRecQuery(String objectType, String[] recordIds,Map<String, String> mapOfNameAndLabel ){
         String mergeRecQuery = 'Select ';
-        for(String field : mapOfNameAndLabel.keySet()){
-            mergeRecQuery += field + ',';
-        }
-        mergeRecQuery = mergeRecQuery.removeEnd(',');
+        mergeRecQuery += String.join(mapOfNameAndLabel.keySet(),',');
         mergeRecQuery += ' From '+objectType+' WHERE ID IN: recordIds order by Name';
 
         return mergeRecQuery;

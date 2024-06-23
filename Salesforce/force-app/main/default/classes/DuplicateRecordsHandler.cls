@@ -1,4 +1,4 @@
-/*
+/**
 *********************************************************
 Apex Class Name    : DuplicateRecordsHandler
 Created Date       : June 22, 2024
@@ -18,7 +18,7 @@ public with sharing class DuplicateRecordsHandler {
     public class ConfigurationErrorException extends Exception {}
 
 
-    /*
+    /**
     *********************************************************
     @Method Name    : getDuplicateRecords
     @author         : Kapil Arora
@@ -72,8 +72,7 @@ public with sharing class DuplicateRecordsHandler {
     }
 
 
-    /*
-    *********************************************************
+    /*********************************************************
     @Method Name    : getMergeRecordsData
     @author         : Kapil Arora
     @description    : This method  is used to fetch distinct record data for master and selected duplicate record
@@ -123,8 +122,7 @@ public with sharing class DuplicateRecordsHandler {
     }
     
 
-    /*
-    *********************************************************
+    /**********************************************************
     @Method Name    : doReparenting
     @author         : Kapil Arora
     @description    : This method  is used to call a future to do reparenting once merge operation is completed
@@ -138,8 +136,7 @@ public with sharing class DuplicateRecordsHandler {
         system.debug('Reparenting Queueable Job Id :'+jobId);
     }
 
-    /*
-    *********************************************************
+    /**********************************************************
     @Method Name    : getObjectMetadata
     @author         : Kapil Arora
     @description    : This private method  is used to fetch record fields metadata
@@ -158,8 +155,7 @@ public with sharing class DuplicateRecordsHandler {
         return objectMetadata;
     }
 
-    /*
-    *********************************************************
+    /**********************************************************
     @Method Name    : getParentQuery
     @author         : Kapil Arora
     @description    : This method  is used to create dynamic query for parent record details
@@ -177,8 +173,7 @@ public with sharing class DuplicateRecordsHandler {
         return parentRecQuery;
     }
 
-    /*
-    *********************************************************
+    /**********************************************************
     @Method Name    : isValidConf
     @author         : Kapil Arora
     @description    : This method  is used to validate all the fields mentioned in the conf are valid
@@ -199,8 +194,7 @@ public with sharing class DuplicateRecordsHandler {
         }
         return isValidConf;
     }
-    /*
-    *********************************************************
+    /**********************************************************
     @Method Name    : getDuplicateRecQuery
     @author         : Kapil Arora
     @description    : This method  is used to create dynamic query for fetching duplicate records
@@ -237,8 +231,7 @@ public with sharing class DuplicateRecordsHandler {
         return dupRecsQuery;
     }
 
-    /*
-    *********************************************************
+    /**********************************************************
     @Method Name    : getMergeRecQuery
     @author         : Kapil Arora
     @description    : This method  is used to create dynamic query for fetching record data of parent and selected record

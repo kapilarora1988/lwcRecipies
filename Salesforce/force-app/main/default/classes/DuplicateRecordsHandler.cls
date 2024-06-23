@@ -34,14 +34,13 @@ public with sharing class DuplicateRecordsHandler {
         Map<String, Object> duplicateData = new Map<String, Object>();
         // Get the object type from record Id
         String objectType = record.getSObjectType().getDescribe().getName();
-        List<Merge_Duplicate__mdt> mergeDuplicateCMData = Merge_Duplicate__mdt.getAll().values();
         boolean objectConfExists = false;
         boolean objectConfValid = false;
         String duplicateCriteriaFields = null;
         String fieldsToDisplay = null;
 
         // Fetch the configuration for given object if available
-        for(Merge_Duplicate__mdt cmData : mergeDuplicateCMData){
+        for(Merge_Duplicate__mdt cmData : Merge_Duplicate__mdt.getAll().values()){
             if(cmData.Object_Name__c == objectType){
                 objectConfExists = true;
                 duplicateCriteriaFields = cmData.Duplicate_Criteria_Fields__c;

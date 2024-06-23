@@ -1,0 +1,27 @@
+<!--
+  @description       : This component is used to display the duplicate records for a given record type
+  @author            : Kapil Arora
+  @last modified on  : 22-06-2024
+  @last modified by  : Kapil Arora
+  Modifications Log 
+  Ver   Date         Author                               Modification
+  1.0   22-06-2024   Kapil Arora            Initial Version | Story Number
+-->
+<template>
+    <lightning-card  lwc:if={showDupRecords} variant="Narrow"  title="Duplicate Records : Select a record to be merged" icon-name="standard:account">
+        <lightning-layout >
+            <lightning-datatable 
+                key-field="Id"
+                data={wiredDataResult}
+                columns={columns}
+                hide-checkbox-column
+                resize-column-disabled
+                onrowaction={handleRowAction}
+                class="slds-p-around_medium">
+            </lightning-datatable>
+        </lightning-layout>
+    </lightning-card>
+    <lightning-layout >
+        <c-merge-duplicates-child if-record-selected={ifRecordSelected} onrefresh={refreshHandler} record-ids={mergeRecords} onclose={handleClose} onprevious={handlePrev}></c-merge-duplicates-child>
+    </lightning-layout>
+</template>

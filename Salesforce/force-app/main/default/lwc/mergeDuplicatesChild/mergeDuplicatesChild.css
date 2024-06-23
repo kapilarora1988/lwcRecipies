@@ -1,0 +1,34 @@
+.custom-box {
+    background-color: #f4f6f9;
+}
+.merge {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 50rem;
+    margin: 1rem;
+  }
+  
+  .merge td, .merge th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .merge tr:nth-child(even){background-color: #f2f2f2;}
+  
+  .merge tr:hover {background-color: #ddd;}
+  
+  .merge th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4F89C0;
+    color: white;
+  }
+
+  .fieldname {
+    font-weight: bold;
+  }
+
+  .selectall {
+    background-color: darkkhaki !important;
+  }

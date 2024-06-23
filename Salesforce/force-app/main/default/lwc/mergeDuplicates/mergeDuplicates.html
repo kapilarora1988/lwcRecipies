@@ -20,8 +20,11 @@
                 class="slds-p-around_medium">
             </lightning-datatable>
         </lightning-layout>
+        <lightning-layout class="slds-align_absolute-center">
+            <lightning-button variant="submit" label="Cancel" title="Cancel" onclick={handleClose}></lightning-button>
+        </lightning-layout>
     </lightning-card>
     <lightning-layout >
-        <c-merge-duplicates-child if-record-selected={ifRecordSelected} onrefresh={refreshHandler} record-ids={mergeRecords} onclose={handleClose} onprevious={handlePrev}></c-merge-duplicates-child>
+        <c-merge-duplicates-child if-record-selected={ifRecordSelected} record-ids={mergeRecords} onclose={handleClose} onprevious={handlePrev}></c-merge-duplicates-child>
     </lightning-layout>
 </template>

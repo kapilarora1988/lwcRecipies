@@ -13,7 +13,7 @@ import getDuplicateRecords from '@salesforce/apex/DuplicateRecordsHandler.getDup
 import { CloseActionScreenEvent } from 'lightning/actions';
 import { refreshApex } from '@salesforce/apex';
 const actions = [
-    { label: 'Merge This', name: 'merge_record' }
+    { label: 'Merge', name: 'merge_record', iconName: 'utility:merge_field' }
 ];
 export default class MergeDuplicates extends LightningElement {
     @api
@@ -70,15 +70,13 @@ export default class MergeDuplicates extends LightningElement {
     }
 
     handlePrev(){
+        refreshApex(this.wiredValues)
         this.ifRecordSelected = false
         this.showDupRecords = true
     }
     handleClose(){
-        this.dispatchEvent(new CloseActionScreenEvent());
-    }
-
-    refreshHandler(){
         refreshApex(this.wiredValues)
+        this.dispatchEvent(new CloseActionScreenEvent());
     }
     
 }

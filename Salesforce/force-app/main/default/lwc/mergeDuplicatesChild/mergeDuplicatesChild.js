@@ -57,7 +57,6 @@ export default class MergeDuplicatesChild extends LightningElement {
             updateRecord(recordInput).then(result=>{
                 refreshApex(this.wiredValues)
                 doReparenting({records : this.recordIds})
-                this.dispatchEvent(new CustomEvent("refresh"));
                 this.showNotification('Success','Successfully Merged')
                 this.dispatchEvent(new CustomEvent("close"))
             }).catch(error=>{
@@ -68,12 +67,10 @@ export default class MergeDuplicatesChild extends LightningElement {
     }
 
     handleCancel(){
-        this.dispatchEvent(new CustomEvent("refresh"));
         this.dispatchEvent(new CustomEvent("close"))
     }
 
     handlePrev(){
-        this.dispatchEvent(new CustomEvent("refresh"));
         this.dispatchEvent(new CustomEvent("previous"));
     }
 

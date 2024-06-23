@@ -18,7 +18,7 @@ const actions = [
 export default class MergeDuplicates extends LightningElement {
     @api
     recordId;
-    wiredDataResult;
+    wiredDataResult
     columns
     showDupRecords
     mergeRecords

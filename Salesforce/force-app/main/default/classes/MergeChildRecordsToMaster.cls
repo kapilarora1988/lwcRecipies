@@ -56,7 +56,7 @@ public without sharing class MergeChildRecordsToMaster {
         if(sObjectMap.size() < Limits.getLimitDMLRows()-Integer.valueOf(Label.Merge_Duplicates_Threshold_For_Reparenting)){
             SObject obj = slaveId.getSObjectType().newSObject();
             obj.put('Id',slaveId);
-            //DELETE obj;
+            DELETE obj;
         }
     }
 }

@@ -59,10 +59,9 @@ public with sharing class DuplicateRecordsHandler {
                 }else{
                     List<Map<String, String>> columns = new List<Map<String, String>>();
                     SObject masterRec = Database.query(getParentQuery(objectType,duplicateCriteriaFields,record));
-                    List<SObject> duplicateRecords = Database.query(getDuplicateRecQuery(objectType,record,masterRec,fieldsToDisplay,duplicateCriteriaFields,
-                                                    columns,mapOfNameAndLabel,limitSize,offset));               
+                    duplicateData.put('data', Database.query(getDuplicateRecQuery(objectType,record,masterRec,fieldsToDisplay,duplicateCriteriaFields,
+                    columns,mapOfNameAndLabel,limitSize,offset)));
                     duplicateData.put('columns',columns);
-                    duplicateData.put('data', duplicateRecords);
                 }
         }
 
@@ -90,16 +89,17 @@ public with sharing class DuplicateRecordsHandler {
         // Querying data for both parent and selected record to merge
         List<SObject> mergeRecordsData = Database.query(getMergeRecQuery(objectType,recordIds,mapOfNameAndLabel));
         List<SObject> sortedRecordsData = new List<SObject>();
-        if(String.valueOf(mergeRecordsData[0].Id).endsWithIgnoreCase(masterRec)){
+
+        if(String.valueOf(mergeRecordsData[0].Id).equalsIgnoreCase(masterRec)){
             sortedRecordsData.add(mergeRecordsData[1]);
             sortedRecordsData.add(mergeRecordsData[0]);
         }else{
             sortedRecordsData.add(mergeRecordsData[0]);
             sortedRecordsData.add(mergeRecordsData[1]);
         }
+        mergeRecordsData.clear();
 
         Map<String, Map<String,String>> mergeRecords = new Map<String,Map<String,String>>();
-        
         for(SObject obj : sortedRecordsData){
             // Converting the SObject list to map for further execution logic
             Map<String,Object> objMap = obj.getPopulatedFieldsAsMap();

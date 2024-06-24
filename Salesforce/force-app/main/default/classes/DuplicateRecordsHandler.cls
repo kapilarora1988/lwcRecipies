@@ -212,7 +212,7 @@ public with sharing class DuplicateRecordsHandler {
             if(!'Name'.equalsIgnoreCase(field)){
                 // Populating map of columns to show in datatable dynamically
                 Map<String, String> columnsVal = new Map<String, String>();
-                columnsVal.put('label', mapOfNameAndLabel.containsKey(field.trim()) ? mapOfNameAndLabel.get(field.trim()): 'Field');
+                columnsVal.put('label', mapOfNameAndLabel.get(field.trim()));
                 columnsVal.put('fieldName', field.trim());
                 columnsVal.put('type', 'text');
                 columns.add(columnsVal);

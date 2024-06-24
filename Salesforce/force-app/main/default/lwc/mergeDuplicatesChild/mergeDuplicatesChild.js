@@ -67,10 +67,12 @@ export default class MergeDuplicatesChild extends LightningElement {
     }
 
     handleCancel(){
+        this.refreshData()
         this.dispatchEvent(new CustomEvent("close"))
     }
 
     handlePrev(){
+        this.refreshData()
         this.dispatchEvent(new CustomEvent("previous"));
     }
 

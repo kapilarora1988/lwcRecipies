@@ -26,32 +26,27 @@ public without sharing class MergeChildRecordsToMaster {
         Schema.DescribeSObjectResult sObjectResult = slaveId.getSObjectType().getDescribe();
         for(Schema.ChildRelationship childRelation : sObjectResult.getChildRelationships()){
             String queryString = 'SELECT Id';
+            String whereQueryString = ' FROM ' + childRelation.getChildSObject().getDescribe().getName() + ' WHERE';
             boolean relationExists = false;
             if(childRelation.getChildSObject().getDescribe().getName().contains('__c') || Label.Merge_Duplicates_Objects_For_Reparenting.containsIgnoreCase(childRelation.getChildSObject().getDescribe().getName())){
-                for(Schema.SobjectField strFld : childRelation.getChildSObject().getDescribe().fields.getMap().Values()){
-                    if(strFld.getDescribe().getType() == Schema.DisplayType.Reference){
-                        if(slaveId.getSObjectType() == strFld.getDescribe().getReferenceTo()[0]){
-                            relationExists = true;
-                            queryString = queryString + ', ' + strFld.getDescribe().getName();
-                        }
-                    }
-                }
-            }
-            if(relationExists){
-                queryString = queryString + ' FROM ' + childRelation.getChildSObject().getDescribe().getName() + ' WHERE';
                 integer n = 0;
                 for(Schema.SobjectField strFld : childRelation.getChildSObject().getDescribe().fields.getMap().Values()){
                     if(strFld.getDescribe().getType() == Schema.DisplayType.Reference){
                         if(slaveId.getSObjectType() == strFld.getDescribe().getReferenceTo()[0]){
+                            relationExists = true;
+                            queryString +=  ', ' + strFld.getDescribe().getName();
                             if(n == 0){
-                                queryString = queryString + ' ' + strFld.getDescribe().getName() + ' =: slaveId';
+                                whereQueryString +=  ' ' + strFld.getDescribe().getName() + ' =: slaveId';
                             } else {
-                                queryString = queryString + ' OR ' + strFld.getDescribe().getName() + ' =: slaveId';
+                                whereQueryString +=  ' OR ' + strFld.getDescribe().getName() + ' =: slaveId';
                             }
                             n++;
                         }
                     }
                 }
+            }
+            if(relationExists){
+                queryString += whereQueryString;
                 for(SObject obj : Database.query(queryString)){
                     Id objId = (Id)obj.get('Id');
                     for(Schema.SobjectField strFld : objId.getSObjectType().getDescribe().fields.getMap().Values()){

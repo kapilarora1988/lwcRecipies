@@ -28,12 +28,14 @@ public without sharing class MergeChildRecordsToMaster {
             String queryString = 'SELECT Id';
             String whereQueryString = ' FROM ' + childRelation.getChildSObject().getDescribe().getName() + ' WHERE';
             boolean relationExists = false;
+            List<Schema.SobjectField> targetFields = new List<Schema.SobjectField>();
             if(childRelation.getChildSObject().getDescribe().getName().contains('__c') || Label.Merge_Duplicates_Objects_For_Reparenting.containsIgnoreCase(childRelation.getChildSObject().getDescribe().getName())){
                 integer n = 0;
                 for(Schema.SobjectField strFld : childRelation.getChildSObject().getDescribe().fields.getMap().Values()){
                     if(strFld.getDescribe().getType() == Schema.DisplayType.Reference){
                         if(slaveId.getSObjectType() == strFld.getDescribe().getReferenceTo()[0]){
                             relationExists = true;
+                            targetFields.add(strFld);
                             queryString +=  ', ' + strFld.getDescribe().getName();
                             if(n == 0){
                                 whereQueryString +=  ' ' + strFld.getDescribe().getName() + ' =: slaveId';
@@ -49,15 +51,11 @@ public without sharing class MergeChildRecordsToMaster {
                 queryString += whereQueryString;
                 for(SObject obj : Database.query(queryString)){
                     Id objId = (Id)obj.get('Id');
-                    for(Schema.SobjectField strFld : objId.getSObjectType().getDescribe().fields.getMap().Values()){
+                    for(Schema.SobjectField strFld : targetFields){
                         if(strFld.getDescribe().isUpdateable()){
-                            if(strFld.getDescribe().getType() == Schema.DisplayType.Reference){
-                                if(slaveId.getSObjectType() == strFld.getDescribe().getReferenceTo()[0]){
-                                    if((Id)obj.get(strFld.getDescribe().getName()) == slaveId){
-                                        obj.put(strFld.getDescribe().getName(), masterId);
-                                        sObjectMap.put((Id)obj.get('Id'), obj);
-                                    }
-                                }
+                            if((Id)obj.get(strFld.getDescribe().getName()) == slaveId){
+                                obj.put(strFld.getDescribe().getName(), masterId);
+                                sObjectMap.put((Id)obj.get('Id'), obj);
                             }
                         }
                     }

@@ -72,9 +72,6 @@ public without sharing class MergeChildRecordsToMaster {
         if(sObjectMap.size()>0){
             UPDATE sObjectMap.values();
         }
-        SObject obj = slaveId.getSObjectType().newSObject();
-        obj.put('Id',slaveId);
-        DELETE obj;
         sObjectMap.clear();
         mergeGenericChildRecords(masterId,slaveId);
     }
@@ -123,5 +120,12 @@ public without sharing class MergeChildRecordsToMaster {
             INSERT toBeMergedContents;
             DELETE oldContents;
         }
+        toBeMergedContents.clear();
+        toBeMergedContents.clear();
+        
+        // Deleting the merged records
+        SObject obj = slaveId.getSObjectType().newSObject();
+        obj.put('Id',slaveId);
+        DELETE obj;
     }
 }

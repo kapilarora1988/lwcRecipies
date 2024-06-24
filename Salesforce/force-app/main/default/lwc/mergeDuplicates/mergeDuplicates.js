@@ -63,10 +63,10 @@ export default class MergeDuplicates extends LightningElement {
     handleRowAction(event) {
         const action = event.detail.action;
         const row = event.detail.row;
-        this.ifRecordSelected = true
-        this.showDupRecords = false
         this.mergeRecords = row.Id+'--'+ this.recordId;
         this.template.querySelector("c-merge-duplicates-child").refreshData()
+        this.ifRecordSelected = true
+        this.showDupRecords = false
     }
 
     handlePrev(){

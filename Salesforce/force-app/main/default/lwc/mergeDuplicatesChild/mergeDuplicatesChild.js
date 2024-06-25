@@ -47,7 +47,7 @@ export default class MergeDuplicatesChild extends LightningElement {
 
     handleMerge(){
 
-        if(JSON.stringify(this.fieldsDataToMerge) === "{}"){
+        if(Object.keys(this.fieldsDataToMerge).length === 0){
             this.showNotification('Error','Please select fields to merge','error')
         }else{
             console.log(JSON.stringify(this.fieldsDataToMerge,null,2))

@@ -10,6 +10,12 @@
 -->
 <template>
     <lightning-card  lwc:if={ifRecordSelected} variant="Narrow"  title="Please select which values to merge" icon-name="standard:account">
+        <lightning-layout class="slds-align_absolute-center">
+            <lightning-button-group class="slds-p-around_medium">
+                <lightning-button variant="submit" label="Go Back" title="Go Back" onclick={handlePrev}></lightning-button>
+                <lightning-button variant="submit" label="Cancel" title="Merge" onclick={handleCancel}></lightning-button>
+            </lightning-button-group>
+        </lightning-layout>
         <div class=" slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
             <table class="merge">
                 <tr>
@@ -31,22 +37,22 @@
                     </td>
                 </tr>
                 
-            <template for:each={mergedRecords} for:item="rec">
-                <tr key={rec.Id}>
-                    <td class="fieldname">{rec.label}</td>
-                    <td>
-                        <label class="radio-inline">
-                            <input type="radio" onchange={handleChange} name={rec.fieldName} value={rec.val2}>  {rec.val2}
-                        </label>
-                    </td>
-                    <td>
-                        <label class="radio-inline">
-                            <input type="radio" onchange={handleChange} name={rec.fieldName} value={rec.val1}>  {rec.val1}
-                        </label>
-                    </td>
-                </tr>                    
-            </template>
-        </table>
+                <template for:each={mergedRecords} for:item="rec">
+                    <tr key={rec.Id}>
+                        <td class="fieldname">{rec.label}</td>
+                        <td>
+                            <label class="radio-inline">
+                                <input type="radio" onchange={handleChange} name={rec.fieldName} value={rec.val2}>  {rec.val2}
+                            </label>
+                        </td>
+                        <td>
+                            <label class="radio-inline">
+                                <input type="radio" onchange={handleChange} name={rec.fieldName} value={rec.val1}>  {rec.val1}
+                            </label>
+                        </td>
+                    </tr>                    
+                </template>
+            </table>
         </div>
         <lightning-layout class="slds-align_absolute-center">
             <lightning-button-group class="slds-p-around_medium">

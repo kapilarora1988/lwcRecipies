@@ -112,5 +112,10 @@ export default class MergeDuplicatesChild extends LightningElement {
     refreshData(){
         refreshApex(this.wiredValues)
     }
+    @api
+    clearData(){
+        this.mergedRecords = []
+        this.fieldsDataToMerge = {}
+    }
     
 }
